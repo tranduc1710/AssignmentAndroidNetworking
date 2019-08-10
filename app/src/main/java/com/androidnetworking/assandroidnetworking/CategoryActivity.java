@@ -3,30 +3,23 @@ package com.androidnetworking.assandroidnetworking;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.androidnetworking.assandroidnetworking.Server.APiuntil;
 import com.androidnetworking.assandroidnetworking.adapter.CategoryAdapter;
-import com.androidnetworking.assandroidnetworking.adapter.FavoritesAdapter;
 import com.androidnetworking.assandroidnetworking.modelCategory.Category;
 
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,6 +30,7 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
     private SearchView searchView;
     private List<Category> category;
     private CategoryAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

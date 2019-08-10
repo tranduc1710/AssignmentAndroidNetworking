@@ -1,4 +1,3 @@
-
 package com.androidnetworking.assandroidnetworking.model;
 
 import com.google.gson.annotations.Expose;
@@ -6,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Title  implements Serializable {
+public class Title implements Serializable {
 
     @SerializedName("rendered")
     @Expose

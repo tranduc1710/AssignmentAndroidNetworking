@@ -9,39 +9,33 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.androidnetworking.assandroidnetworking.R;
-import com.androidnetworking.assandroidnetworking.model.Post;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHolder> {
 
-    List<Post> dataPost;
-    Context context;
+    private Context context;
+    private List<String> listLink;
     private OnClickListener onClickListener;
 
-    public PostAdapter(List<Post> dataPost, Context context, OnClickListener onClickListener) {
-        this.dataPost = dataPost;
+    public ContentAdapter(Context context, List<String> listLink, OnClickListener onClickListener) {
         this.context = context;
+        this.listLink = listLink;
         this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        View item = layoutInflater.inflate(R.layout.item_post, viewGroup, false);
-        return new ViewHolder(item);
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_content, viewGroup, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        final com.androidnetworking.assandroidnetworking.model.Post post = dataPost.get(i);
+        Picasso.with(context).load(listLink.get(i)).into(viewHolder.imgPost);
 
-        Picasso.with(context).load(post.getEmbedded().getWpFeaturedmedia().get(0).getMediaDetails().getSizes().getFull().getSourceUrl()).into(viewHolder.img_Item);
-
-
-        viewHolder.img_Item.setOnClickListener(new View.OnClickListener() {
+        viewHolder.imgPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickListener.onClickListener(i);
@@ -51,18 +45,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return dataPost.size();
+        return listLink.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView img_Item;
+
+        private ImageView imgPost;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            img_Item = itemView.findViewById(R.id.imgPost);
+
+            imgPost = itemView.findViewById(R.id.img_avtPost);
         }
-
-
     }
-
 }

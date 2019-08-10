@@ -1,4 +1,3 @@
-
 package com.androidnetworking.assandroidnetworking.model;
 
 import com.google.gson.annotations.Expose;

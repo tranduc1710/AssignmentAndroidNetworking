@@ -3,28 +3,20 @@ package com.androidnetworking.assandroidnetworking;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import com.androidnetworking.assandroidnetworking.adapter.FavoritesAdapter;
-import com.androidnetworking.assandroidnetworking.adapter.PostAdapter;
-import com.androidnetworking.assandroidnetworking.model.Post;
-
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class FavoritesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -38,11 +30,10 @@ public class FavoritesActivity extends AppCompatActivity implements NavigationVi
         recyclerView.setLayoutManager(gridLayoutManager);
 
 
-
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                startActivity(new Intent(getApplicationContext(),ImageDetailActivity.class));
+                startActivity(new Intent(getApplicationContext(), ImageDetailActivity.class));
             }
 
             @Override

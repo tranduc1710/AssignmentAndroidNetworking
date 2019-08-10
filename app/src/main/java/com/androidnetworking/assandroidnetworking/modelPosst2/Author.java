@@ -1,4 +1,3 @@
-
 package com.androidnetworking.assandroidnetworking.modelPosst2;
 
 import com.google.gson.annotations.Expose;

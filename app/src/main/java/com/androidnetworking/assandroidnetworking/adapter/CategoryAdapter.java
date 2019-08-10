@@ -12,11 +12,7 @@ import android.widget.TextView;
 import com.androidnetworking.assandroidnetworking.R;
 import com.androidnetworking.assandroidnetworking.modelCategory.Category;
 
-
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Callback;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private static ClickListener clickListener;
@@ -41,12 +37,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         Category category = categories.get(i);
 
         viewHolder.tvNameCategory.setText(category.getName());
-        viewHolder.tvSoPhanTu.setText(category.getCount()+"");
+        viewHolder.tvSoPhanTu.setText(category.getCount() + "");
     }
 
     @Override
     public int getItemCount() {
         return categories.size();
+    }
+
+    public void setOnItemClickListener(CategoryAdapter.ClickListener clickListener) {
+        CategoryAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -65,13 +69,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public void onClick(View v) {
             clickListener.onItemClick(getAdapterPosition(), v);
         }
-    }
-
-    public void setOnItemClickListener(CategoryAdapter.ClickListener clickListener) {
-        CategoryAdapter.clickListener = clickListener;
-    }
-
-    public interface ClickListener {
-        void onItemClick(int position, View v);
     }
 }

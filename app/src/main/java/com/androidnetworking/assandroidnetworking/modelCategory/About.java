@@ -1,4 +1,3 @@
-
 package com.androidnetworking.assandroidnetworking.modelCategory;
 
 import com.google.gson.annotations.Expose;

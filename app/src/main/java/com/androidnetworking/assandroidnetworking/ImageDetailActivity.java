@@ -1,6 +1,5 @@
 package com.androidnetworking.assandroidnetworking;
 
-import android.app.Application;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
@@ -38,20 +37,17 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
 import java.util.Objects;
 
 public class ImageDetailActivity extends AppCompatActivity {
 
     FloatingActionMenu floatingActionMenu;
     FloatingActionButton fbtnSetAs, fbtnShare, fbtnSave, fbtnFavorites;
+    int width, height;
+    String link;
     private ImageView mImgImageDetail;
     private DisplayMetrics displayMetrics;
-    int width,height;
     private ProgressDialog progressBar;
-    Post post;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +162,7 @@ public class ImageDetailActivity extends AppCompatActivity {
         fbtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DownloadFileFromURL(ImageDetailActivity.this).execute(post.getEmbedded().getWpFeaturedmedia().get(0).getMediaDetails().getSizes().getFull().getSourceUrl());
+                new DownloadFileFromURL(ImageDetailActivity.this).execute(link);
             }
         });
 
@@ -176,13 +172,13 @@ public class ImageDetailActivity extends AppCompatActivity {
                 Toast.makeText(ImageDetailActivity.this, "Favorites", Toast.LENGTH_SHORT).show();
             }
         });
-    GetItem();
+        GetItem();
     }
 
     private void GetItem() {
-        post = (Post) getIntent().getSerializableExtra("imageinfo");
+        link = getIntent().getStringExtra("imageContent");
 
-        Picasso.with(ImageDetailActivity.this).load(post.getEmbedded().getWpFeaturedmedia().get(0).getMediaDetails().getSizes().getFull().getSourceUrl()).into(mImgImageDetail);
+        Picasso.with(ImageDetailActivity.this).load(link).into(mImgImageDetail);
 
     }
 
@@ -196,6 +192,7 @@ public class ImageDetailActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     public void GetScreenWidthHeight() {
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
             displayMetrics = new DisplayMetrics();
@@ -210,6 +207,7 @@ public class ImageDetailActivity extends AppCompatActivity {
             height = size.y;
         }
     }
+
     class DownloadFileFromURL extends AsyncTask<String, Integer, String> {
         public Context context;
 
@@ -237,7 +235,7 @@ public class ImageDetailActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... f_url) {
             int count;
-            String param  = f_url[0];
+            String param = f_url[0];
             try {
                 String root = Environment.getExternalStorageDirectory().toString();
                 URL url = new URL(param);
@@ -247,8 +245,10 @@ public class ImageDetailActivity extends AppCompatActivity {
                 // input stream to read file - with 8k buffer
                 InputStream input = new BufferedInputStream(url.openStream(), 8192);
                 // Output stream to write file
+                int start = link.length()-10;
+                int end = link.length();
 
-                OutputStream output = new FileOutputStream(root + "/" + (post.getId()) + ".jpg");
+                OutputStream output = new FileOutputStream(root + "/" + link.substring(start, end));
 
                 byte data[] = new byte[1024];
 
